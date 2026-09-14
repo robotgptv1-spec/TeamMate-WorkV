@@ -142,4 +142,7 @@ def api_download_zip(job_id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    # Render द्वारा दिए गए PORT को पढ़ें, अगर नहीं है तो डिफ़ॉल्ट 5000 रखें
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
+
