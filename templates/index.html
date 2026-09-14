@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MultiLLMWork · Godmode</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      MULTILLMWORK <span class="mode">GODMODE</span>
+    </div>
+    <div class="status">
+      <span class="status-dot" id="statusDot"></span>
+      <span id="statusText">idle</span>
+    </div>
+  </header>
+
+  <main class="deck">
+
+    <!-- CONFIG -->
+    <aside class="panel config-panel">
+      <p class="eyebrow">Relay Config</p>
+      <h2>Access &amp; Brief</h2>
+
+      <form id="buildForm">
+        <div class="field">
+          <label>
+            <span class="provider-tag"><span class="provider-dot claude"></span>Claude</span>
+            <span class="req">runner 1</span>
+          </label>
+          <input type="password" id="claudeKey" placeholder="sk-ant-...">
+        </div>
+
+        <div class="field">
+          <label>
+            <span class="provider-tag"><span class="provider-dot openai"></span>OpenAI</span>
+            <span class="req">runner 2</span>
+          </label>
+          <input type="password" id="openaiKey" placeholder="sk-...">
+        </div>
+
+        <div class="field">
+          <label>
+            <span class="provider-tag"><span class="provider-dot gemini"></span>Gemini</span>
+            <span class="req">runner 3</span>
+          </label>
+          <input type="password" id="geminiKey" placeholder="AIza...">
+        </div>
+
+        <div class="field-hint">Keys sirf is session mein use hote hain, kahin save nahi hote. Kam se kam ek do.</div>
+
+        <div class="field" style="margin-top: 22px;">
+          <label>Mission brief</label>
+          <textarea id="prompt" placeholder="e.g. Make a beautiful digital clock UI with dark mode toggle using HTML, CSS, JS"></textarea>
+        </div>
+
+        <button type="submit" class="initiate-btn" id="initiateBtn">Initiate Relay</button>
+        <div class="error-banner" id="errorBanner"></div>
+      </form>
+    </aside>
+
+    <!-- RELAY TRACK -->
+    <section class="panel track-panel">
+      <svg class="relay-svg" viewBox="0 0 480 340" id="relaySvg">
+        <path class="track-path" d="M 240 40 C 380 40, 430 160, 380 230 C 330 300, 150 300, 100 230 C 50 160, 100 40, 240 40 Z" />
+        <circle class="baton" id="baton" r="6"></circle>
+
+        <g class="node" id="node-claude" transform="translate(240,40)">
+          <circle class="ring" r="34"></circle>
+          <text class="label" y="4">CLAUDE</text>
+          <text class="state" y="52">idle</text>
+        </g>
+
+        <g class="node" id="node-openai" transform="translate(390,235)">
+          <circle class="ring" r="34"></circle>
+          <text class="label" y="4">OPENAI</text>
+          <text class="state" y="52">idle</text>
+        </g>
+
+        <g class="node" id="node-gemini" transform="translate(90,235)">
+          <circle class="ring" r="34"></circle>
+          <text class="label" y="4">GEMINI</text>
+          <text class="state" y="52">idle</text>
+        </g>
+      </svg>
+      <p class="track-caption" id="trackCaption">Baton passes runner to runner. Jab koi quota par ruk jaata hai, agla runner turant utha leta hai — kaam wahi se chalu hota hai jahan ruka tha.</p>
+    </section>
+
+    <!-- TERMINAL -->
+    <section class="panel terminal-panel">
+      <div class="terminal-header">
+        <p class="eyebrow">Live Feed</p>
+      </div>
+      <div class="terminal-body" id="log">
+        <div class="line terminal-empty">Waiting for launch. Fill the config panel and hit Initiate Relay.</div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="files-strip" id="filesStrip">
+    <span class="eyebrow">Output</span>
+    <span class="terminal-empty" style="font-family: var(--font-mono); font-size: 12px; color: var(--text-faint);" id="filesEmpty">no files yet</span>
+    <div class="output-actions" id="outputActions" style="display:none;">
+      <button type="button" class="ghost-btn" id="downloadZipBtn">⬇ Download Project (.zip)</button>
+      <button type="button" class="ghost-btn" id="previewBtn" style="display:none;">▶ Live Preview</button>
+    </div>
+  </footer>
+
+  <div class="preview-overlay" id="previewOverlay">
+    <div class="preview-frame">
+      <div class="preview-bar">
+        <span class="eyebrow" style="margin:0;">Live Preview</span>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <a id="previewNewTab" href="#" target="_blank" class="ghost-btn small">Open in new tab</a>
+          <button type="button" class="ghost-btn small" id="closePreview">Close</button>
+        </div>
+      </div>
+      <iframe id="previewIframe" title="Live project preview"></iframe>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
