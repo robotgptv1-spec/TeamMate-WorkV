@@ -2,3 +2,4 @@ flask
 anthropic
 openai
 google-genai
+gunicorn
